@@ -87,35 +87,35 @@ public class CreateAccountFragment extends Fragment {
 
 
 
-        String email = mEmail.getText().toString();
-        String password = mPassword.getText().toString();
-
-        if ( email.equals( "" ) || password.equals("") )
-        {
-            Toast.makeText(getContext(), "Missing email or password!!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            showProgress(true);
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if (!task.isSuccessful()) {
-                        Toast.makeText(getContext(), R.string.error_create_account, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Utils.saveLocalUser(getContext(),
-                                mUsername.getText().toString(),
-                                mEmail.getText().toString(),
-                                task.getResult().getUser().getUid());
-
-                        mCallback.openChat();
-                    }
-
-                    showProgress(false);
-                    Utils.closeKeyboard(getContext(), mEmail);
-                }
-            });
-        }
+//        String email = mEmail.getText().toString();
+//        String password = mPassword.getText().toString();
+//
+//        if ( email.equals( "" ) || password.equals("") )
+//        {
+//            Toast.makeText(getContext(), "Missing email or password!!", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            showProgress(true);
+//            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+//                @Override
+//                public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                    if (!task.isSuccessful()) {
+//                        Toast.makeText(getContext(), R.string.error_create_account, Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Utils.saveLocalUser(getContext(),
+//                                mUsername.getText().toString(),
+//                                mEmail.getText().toString(),
+//                                task.getResult().getUser().getUid());
+//
+//                        mCallback.openChat();
+//                    }
+//
+//                    showProgress(false);
+//                    Utils.closeKeyboard(getContext(), mEmail);
+//                }
+//            });
+//        }
     }
 
     private void showProgress(boolean show) {

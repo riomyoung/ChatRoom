@@ -23,10 +23,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginFragment extends Fragment {
 
     /** UI Components **/
-    private AutoCompleteTextView mEmail;
-    private EditText mPassword;
+//    private AutoCompleteTextView mEmail;
+//    private EditText mPassword;
     private View mProgressView;
     private View mLoginFormView;
+    String username;
 
     /** Activity callback **/
     private ActivityCallback mCallback;
@@ -50,32 +51,38 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mEmail = (AutoCompleteTextView) root.findViewById(R.id.username);
-        mPassword = (EditText) root.findViewById(R.id.password);
+//        mEmail = (AutoCompleteTextView) root.findViewById(R.id.username);
+//        mPassword = (EditText) root.findViewById(R.id.password);
+        final AutoCompleteTextView username_editext;
+        username_editext = root.findViewById( R.id.username);
 
         final Button signInButton = (Button) root.findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                username = username_editext.getText().toString();
                 Utils.closeKeyboard(getContext(), signInButton);
                 attemptLogin();
+                signInButton.setVisibility(View.GONE);
             }
         });
 
-        final Button createAccount = (Button) root.findViewById(R.id.create_account_button);
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utils.closeKeyboard(getContext(), createAccount);
-                mCallback.openCreateAccount();
-            }
-        });
+//        final Button createAccount = (Button) root.findViewById(R.id.create_account_button);
+//        createAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Utils.closeKeyboard(getContext(), createAccount);
+//                mCallback.openCreateAccount();
+//            }
+//        });
+
+
 
         mLoginFormView = root.findViewById(R.id.login_form);
         mProgressView = root.findViewById(R.id.login_progress);
 
         mAuth = FirebaseAuth.getInstance();
-        Utils.closeKeyboard(getContext(), mEmail);
+//        Utils.closeKeyboard(getContext(), mEmail);
 
         return root;
     }
@@ -97,25 +104,25 @@ public class LoginFragment extends Fragment {
     private void attemptLogin() {
 
         // Reset errors.
-        mEmail.setError(null);
-        mPassword.setError(null);
+//        mEmail.setError(null);
+//        mPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        String username = mEmail.getText().toString();
-        String password = mPassword.getText().toString();
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(username)) {
-            mEmail.setError(getString(R.string.error_empty));
-            mEmail.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            mPassword.setError(getString(R.string.error_password));
-            mPassword.requestFocus();
-            return;
-        }
+//        String username = mEmail.getText().toString();
+//        String password = mPassword.getText().toString();
+//
+//        // Check for a valid email address.
+//        if (TextUtils.isEmpty(username)) {
+//            mEmail.setError(getString(R.string.error_empty));
+//            mEmail.requestFocus();
+//            return;
+//        }
+//
+//        if (TextUtils.isEmpty(password)) {
+//            mPassword.setError(getString(R.string.error_password));
+//            mPassword.requestFocus();
+//            return;
+//        }
 
         login();
     }
@@ -123,29 +130,26 @@ public class LoginFragment extends Fragment {
     private void login() {
         showProgress(true);
 
-        String email = mEmail.getText().toString();
+//        String email = mEmail.getText().toString();
 //        final String email = "email";
-        String password = mPassword.getText().toString();
+//        String password = mPassword.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                if (mCallback != null) {
-                    Utils.saveLocalUser(getContext(), Constants.DEFAULT_USER,
-                            mEmail.getText().toString(),
-//                            email,
-                            authResult.getUser().getUid());
+//        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//            @Override
+//            public void onSuccess(AuthResult authResult) {
+//                if (mCallback != null) {
+                    Utils.saveLocalUser(getContext(), username );
 
                     mCallback.openChat();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                showProgress(false);
-                Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                showProgress(false);
+//                Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     private void showProgress(boolean show) {

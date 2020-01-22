@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity implements ActivityCallback{
     //https://blog.avenuecode.com/realtime-chats-with-firebase-in-android
 
-    Button debug;
+//    Button debug;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +33,19 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback{
         DatabaseReference myRef = database.getReference("message");
 
         myRef.setValue("Hello, World!");
-
-        debug = findViewById(R.id.debug);
-
-        debug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, ChatFragment.newInstance())
-                        .commit();
-                debug.setVisibility(View.GONE);
-            }
-        });
+//
+//        debug = findViewById(R.id.debug);
+//
+//        debug.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.container, ChatFragment.newInstance())
+//                        .commit();
+//                debug.setVisibility(View.GONE);
+//            }
+//        });
     }
 
     @Override

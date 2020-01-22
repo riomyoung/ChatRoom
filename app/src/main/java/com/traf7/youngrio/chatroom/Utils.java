@@ -11,12 +11,12 @@ public class Utils {
         manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static void saveLocalUser(Context context, String username, String email, String id) {
+    public static void saveLocalUser(Context context, String username) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         sharedPreferences.edit()
                 .putString(Constants.PREFERENCES_USER_NAME,username)
-                .putString(Constants.PREFERENCES_USER_EMAIL,email)
-                .putString(Constants.PREFERENCES_USER_ID,id)
+//                .putString(Constants.PREFERENCES_USER_EMAIL,email)
+//                .putString(Constants.PREFERENCES_USER_ID,id)
                 .apply();
 
     }
